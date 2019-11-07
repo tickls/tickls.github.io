@@ -1,16 +1,17 @@
 #define _MousePosition iMouse
 #define _XCellCount 25.0
 
-vec4 _LineColor = vec4(0.0, 0.1, 0.9, 0.8);
+vec4 _LineColor = vec4(0.9, 0.3, 0.0, 0.8);
+//vec4 _LineColor = vec4(0.0, 0.1, 0.9, 0.8);
 vec4 _LineDrawRange = vec4(2.0, 0.5, 0.0, 1.0);
 vec4 _LineWidthRange = vec4(0.015, 0.01, 0.0, 0.0);
-//vec4 _SparkleColor = vec4(0.75,0.2,0.1,1);
-vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
+vec4 _SparkleColor = vec4(0.75,0.2,0.1,1);
+//vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
 vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
-
 vec4 _SparkleDrawIntensity = vec4(100.0, 100.0, 0.0, 1.0);
+
 float _Speed = 3.0;
-float _CenterDriftRange = 0.5;
+float _CenterDriftRange = 0.75;
 
 float distToLine(vec2 p, vec2 a, vec2 b) {
     vec2 pa = p - a;
@@ -65,9 +66,6 @@ vec2 layer(vec2 uv) {
     vec2 mousePos = ((iMouse.xy - 0.5 * iResolution.xy) / iResolution.y);
     mousePos.y = -mousePos.y;
     float mousePosDistance = length(uv - mousePos);
-
-    
-    //return vec2(mousePosDistance);
     
     float mouseSmoothing = min(1.0, -log(-mousePosDistance + 1.0));
     float mouseInfluence = 0.5 - min(mouseSmoothing, 0.5);// max(0.025, 4.0);
@@ -121,7 +119,7 @@ vec2 layer(vec2 uv) {
         sparkle += (1.0 / dot(j*_SparkleDrawIntensity.y, j*_SparkleDrawIntensity.y)); // Outer Glow
 #endif
 
-#if 0 // Draw sparkle online on top of the line
+#if 1 // Draw sparkle online on top of the line
         sparkle *= m;
 #endif
 
