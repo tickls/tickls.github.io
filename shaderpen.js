@@ -39,7 +39,7 @@ const prepareShader = (shaderString) => {
     return shaderHeader + shaderString + shaderFooter;
 }
 
-var ShaderPen = function (generate) {
+var ShaderPen = function () {
   // eslint-disable-line no-unused-vars
   function ShaderPen(shaderString, noRender) {
     _classCallCheck(this, ShaderPen);
@@ -75,27 +75,6 @@ var ShaderPen = function (generate) {
     };
 
     const versionStr = '#version 300 es';
-
-if(false) {
-
-    // create default string values
-    //shaderString = (io ? '#define ' + io[1] + ' gl_FragColor\n#define ' + io[2] + ' gl_FragCoord.xy\n' : '') + shaderString;
-    //shaderString = (io ? '#define ' + io[1] + ' gl_FragColor\n#define ' + io[2] + ' gl_FragCoord.xy\n' : '') + shaderString;
-    shaderString = Object.keys(uniforms).map(function (key) {
-      return {
-        name: key,
-        type: uniforms[key].type
-      };
-    }).reduce(function (a, uniform) {
-      return a + ('uniform ' + uniform.type + ' ' + uniform.name + ';\n');
-    }, '') + shaderString;
-
-    //const versionStr = '#version 400';
-
-    shaderString = versionStr + '  \nprecision highp float;\n' + shaderString;
-}
-
-
 
     // create, position, and add canvas
     var canvas = this.canvas = document.createElement('canvas');
@@ -159,6 +138,16 @@ if(false) {
     // report webgl errors
     this.reportErrors();
 
+    this.currentMouse = {
+      x: 0,
+      y: 0
+    };
+
+    this.mouseTarget = {
+      x: 0,
+      y: 0
+    };
+
     // bind contexts
     this._bind('mouseDown', 'mouseMove', 'mouseUp', 'render', 'resize');
 
@@ -198,8 +187,21 @@ if(false) {
     key: 'mouseMove',
     value: function mouseMove(e) {
       //if (this.mousedown) {
-        this.uniforms.iMouse.value[0] = e.clientX;
-        this.uniforms.iMouse.value[1] = e.clientY;
+        this.mouseTarget = {
+          x: e.clientX,
+          y: e.clientY
+        }
+
+        return;
+        const weightAverage = (v,w,N = 100) => {
+          return ((v * (N - 1)) + w) / N;
+        };
+
+        this.prevMouse.x = weightAverage(this.prevMouse.x, e.clientX);
+        this.prevMouse.y = weightAverage(this.prevMouse.y, e.clientY);
+
+        this.uniforms.iMouse.value[0] = this.prevMouse.x;//e.clientX;
+        this.uniforms.iMouse.value[1] = this.prevMouse.y;//e.clientY;
       // }
     }
   }, {
@@ -212,6 +214,17 @@ if(false) {
   }, {
     key: 'render',
     value: function render(timestamp) {
+      const weightAverage = (v,w,N = 50) => {
+        return ((v * (N - 1)) + w) / N;
+      };
+
+      this.currentMouse.x = weightAverage(this.currentMouse.x, this.mouseTarget.x);
+      this.currentMouse.y = weightAverage(this.currentMouse.y, this.mouseTarget.y);
+
+      this.uniforms.iMouse.value[0] = this.currentMouse.x;//e.clientX;
+      this.uniforms.iMouse.value[1] = this.currentMouse.y;//e.clientY;
+
+
       var _this2 = this;
 
       var gl = this.gl;

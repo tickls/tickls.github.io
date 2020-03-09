@@ -11,7 +11,7 @@ vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
 vec4 _SparkleDrawIntensity = vec4(100.0, 100.0, 0.0, 1.0);
 
 float _Speed = 3.0;
-float _CenterDriftRange = 0.75;
+float _CenterDriftRange = 0.5;
 
 float distToLine(vec2 p, vec2 a, vec2 b) {
     vec2 pa = p - a;
@@ -140,35 +140,10 @@ vec2 layer(vec2 uv) {
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
     vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
-    
-    
-    //fragColor = vec4(length(mousePos - uv),0,0,1);
-    
-// }
-// fixed4 frag (v2f i) : SV_Target
-// {
-//     vec2 uv = (i.uv - 0.5) * vec2((_AspectRatio.x/_AspectRatio.y), 1);
 
-#if 0
-    float t = _Time.x;
-
-    float m = 0;
-    float r = 0;
-
-    for(float i = 0; i <= 1; i += 1.0/4.0) {
-        float z = fract(i+t);
-        float size = lerp(1.0, 0.5, z);
-
-        vec2 layCol = layer(uv*size+i*20.0);
-
-        m+= layCol.x;
-        m+= layCol.y;
-    }
-#else 
     vec2 layCol = layer(uv);
     float m = layCol.x;
     float r = layCol.y;
-#endif
 
 #if 1
     vec4 col = (m * _LineColor) + (r * _SparkleColor);// * avgLength);// * _LineColorSparkleMultiplier);
