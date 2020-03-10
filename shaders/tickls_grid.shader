@@ -2,9 +2,9 @@
 #define _XCellCount 25.0
 
 vec4 _LineColor = vec4(0.9, 0.3, 0.0, 0.8);
-//vec4 _LineColor = vec4(0.0, 0.1, 0.9, 0.8);
+vec4 _LineColor2 = vec4(0.0, 0.1, 0.9, 0.8);
 vec4 _LineDrawRange = vec4(2.0, 0.5, 0.0, 1.0);
-vec4 _LineWidthRange = vec4(0.015, 0.01, 0.0, 0.0);
+vec4 _LineWidthRange = vec4(0.025, 0.02, 0.0, 0.0);
 vec4 _SparkleColor = vec4(0.75,0.2,0.1,1);
 //vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
 vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
@@ -139,14 +139,19 @@ vec2 layer(vec2 uv) {
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
+    vec2 mousePos = ((iMouse.xy - 0.5 * iResolution.xy) / iResolution.y);
+    mousePos.y = -mousePos.y;
+
     vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
+
+    float mouseDist = min(distance(mousePos, uv), 1.0);
 
     vec2 layCol = layer(uv);
     float m = layCol.x;
     float r = layCol.y;
 
 #if 1
-    vec4 col = (m * _LineColor) + (r * _SparkleColor);// * avgLength);// * _LineColorSparkleMultiplier);
+    vec4 col = mix((m * _LineColor), m * _LineColor2, 0.5 + mouseDist * 0.5) + (r * _SparkleColor);// * avgLength);// * _LineColorSparkleMultiplier);
 #endif
 
     fragColor = col;//fixed4(col,1);;
