@@ -1,5 +1,5 @@
 #define _MousePosition iMouse
-#define _XCellCount 30.0
+#define _XCellCount 50.0
 
 vec4 _LineColor = vec4(1, 1, 1, 0.8);
 vec4 _LineColor2 = vec4(0.1, 0.1, 0.1, 1);
@@ -8,7 +8,7 @@ vec4 _LineWidthRange = vec4(0.025, 0.02, 0.0, 0.0);
 vec4 _SparkleColor = vec4(0.1,0.1,0.1,1);
 //vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
 vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
-vec4 _SparkleDrawIntensity = vec4(100.0, 100.0, 0.0, 1.0);
+vec4 _SparkleDrawIntensity = vec4(500.0, 500.0, 0.0, 1.0);
 
 float _Speed = 2.0;
 float _CenterDriftRange = 0.9;
@@ -151,7 +151,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     float r = layCol.y;
 
 #if 1
-    vec4 col = mix((m * _LineColor), m * _LineColor2, 0.5 + mouseDist * 0.5) + (r * _SparkleColor);// * avgLength);// * _LineColorSparkleMultiplier);
+    vec4 col = mix((m * _LineColor), m * _LineColor2, 0.5 + mouseDist * 0.9);// + (r * _SparkleColor);// * avgLength);// * _LineColorSparkleMultiplier);
 #endif
 
     fragColor = col;//fixed4(col,1);;
