@@ -1,10 +1,10 @@
 #define _MousePosition iMouse
-#define _XCellCount 50.0
+#define _XCellCount 45.0
 
 vec4 _LineColor = vec4(1, 1, 1, 0.8);
 vec4 _LineColor2 = vec4(0.1, 0.1, 0.1, 1);
 vec4 _LineDrawRange = vec4(2.0, 0.5, 0.0, 1.0);
-vec4 _LineWidthRange = vec4(0.025, 0.02, 0.0, 0.0);
+vec4 _LineWidthRange = vec4(0.04, 0.02, 0.0, 0.0);
 vec4 _SparkleColor = vec4(0.1,0.1,0.1,1);
 //vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
 vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
