@@ -77,7 +77,7 @@ var ShaderPen = function () {
     const versionStr = '#version 300 es';
 
     // create, position, and add canvas
-    var canvas = this.canvas = document.createElement('canvas');
+    var canvas = this.canvas = document.getElementById('prettyness');//document.createElement('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     canvas.style.position = 'fixed';
