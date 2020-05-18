@@ -1,17 +1,17 @@
 #define _MousePosition iMouse
-#define _XCellCount 25.0
+#define _XCellCount 30.0
 
-vec4 _LineColor = vec4(0.9, 0.3, 0.0, 0.8);
-vec4 _LineColor2 = vec4(0.0, 0.1, 0.9, 0.8);
+vec4 _LineColor = vec4(1, 1, 1, 0.8);
+vec4 _LineColor2 = vec4(0.1, 0.1, 0.1, 1);
 vec4 _LineDrawRange = vec4(2.0, 0.5, 0.0, 1.0);
 vec4 _LineWidthRange = vec4(0.025, 0.02, 0.0, 0.0);
-vec4 _SparkleColor = vec4(0.75,0.2,0.1,1);
+vec4 _SparkleColor = vec4(0.1,0.1,0.1,1);
 //vec4 _SparkleColor = vec4(0.2,0.3,0.9,1);
 vec4 _HighlightColor = vec4(0.25, 0.0, 0.0, 0.0);
 vec4 _SparkleDrawIntensity = vec4(100.0, 100.0, 0.0, 1.0);
 
-float _Speed = 3.0;
-float _CenterDriftRange = 0.5;
+float _Speed = 2.0;
+float _CenterDriftRange = 0.9;
 
 float distToLine(vec2 p, vec2 a, vec2 b) {
     vec2 pa = p - a;
@@ -89,7 +89,7 @@ vec2 layer(vec2 uv) {
 
     for(float y = -1.0; y <= 1.0; y++) {
         for(float x = -1.0; x <= 1.0; x++) {
-            p[j] = GetPos(id, vec2(x, y), mouseInfluence*2.0);
+            p[j] = GetPos(id, vec2(x, y), mouseInfluence*1.5);
 
             avgLength += distance(gv, p[j]);
 
