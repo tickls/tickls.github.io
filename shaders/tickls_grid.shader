@@ -1,5 +1,5 @@
 #define _MousePosition iMouse
-#define _XCellCount 45.0
+#define _XCellCount 38.0
 
 vec4 _LineColor = vec4(1, 1, 1, 0.8);
 vec4 _LineColor2 = vec4(0.1, 0.1, 0.1, 1);
