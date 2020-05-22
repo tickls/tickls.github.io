@@ -1,61 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
+<head>
     <title>tickls.com</title>
-    <head>
-        <!-- 
-            Nice little script which takes care of the webgl boilerplate boring stuff and passes all the the shader toy variables to the shader.
-            Mucho gracias to the guy who shared this @ https://github.com/halvves
-        -->
-        <script src="shaderpen.js"></script> 
-    </head>
-    <body style="background-color: black;">
-        <canvas id="prettyness"></canvas>
-        HELLO?
-        <script>
-            // Simple function to load a text file (shader in this case) from some url.
-            const parseShaderName = () => {
-                var url = '' + window.location;
-                var paramsArr = url.split('#');
-                var shaderName = 'tickls_grid';
+    <link href="https://db.onlinewebfonts.com/c/3b2646a48566403a55f62ceddbecbe18?family=Hiragino+Sans+GB"
+        rel="stylesheet" type="text/css" />
+    <style>
+        .ticklsHeader {
+            font-family: 'Hiragino Sans W0', Arial, sans-serif;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 60pt;
+            color: white;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
 
-                if(paramsArr !== undefined && paramsArr.length > 1) {
-                    shaderName = paramsArr[1];
-                }
+        .headerBackground {
+            background-color: #aaaaaa22;
+            position: absolute;
+            width: 300px;
+            height: 100px;
+            display: table;
+            left: 20px;
+            top: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(6px);
+        }
 
-                return shaderName;
-            };
+        body {
+            margin: 0px;
+            overflow: hidden;
+            background-color: black;
+        }
+    </style>
+</head>
 
-            function loadShader(url) {
-                return new Promise((resolve, reject) => {
-                    console.log(`Loading shader: ${url}..`);
-                    var req = new XMLHttpRequest();
+<body>
+    <div>
+        <div class='headerBackground'>
+            <h1 class='ticklsHeader'>tickls</h1>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
 
-                    req.onreadystatechange = () => {
-                        if(req.readyState === 4) { // Done
-                            if(req.status === 200) {
-                                return resolve(req.responseText);
-                            }
-
-                            return reject(`Could not get shader at url: ${url}`);
-                        }
-                    }
-
-                    req.open('GET', url); // Not async
-                    req.send();
-                });
-            }
-
-            const shaderName = parseShaderName();
-
-            console.log(`shaderName: ${shaderName}`);
-
-            loadShader(`shaders/${shaderName}.shader`)
-                .then(shaderStr => {
-                    new ShaderPen(shaderStr);
-                })
-                .catch(err => {
-                    console.error(`Some error occurred somewhere :-( Err: ${err}`);
-                });
-        </script>
-   </body>
 </html>
