@@ -3,20 +3,21 @@
 
 <head>
     <title>tickls.com</title>
-    <link href="https://db.onlinewebfonts.com/c/3b2646a48566403a55f62ceddbecbe18?family=Hiragino+Sans+GB"
-        rel="stylesheet" type="text/css" />
-    
     <meta property="og:title" content="tickls.com">
     <meta property="og:description" content="Awesomeness">
     <meta property="og:image" content="https://tickls.com/logo.png">
     <meta property="og:url" content="https://tickls.com/">
-
     <style>
+        @font-face {
+            font-family: "Hiragino Sans GB";
+            src: url("https://db.onlinewebfonts.com/t/3b2646a48566403a55f62ceddbecbe18.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+        }
+
         .ticklsHeader {
             font-family: 'Hiragino Sans W0', Arial, sans-serif;
             font-weight: normal;
             font-style: normal;
-            font-size: 60pt;
+            font-size: 40pt;
             color: white;
             display: table-cell;
             vertical-align: middle;
@@ -26,13 +27,16 @@
         .headerBackground {
             background-color: #aaaaaa22;
             position: absolute;
-            width: 300px;
-            height: 100px;
+            width: 200px;
+            height: 60px;
             display: table;
             left: 20px;
             top: 20px;
             border-radius: 20px;
             backdrop-filter: blur(6px);
+            border-style: dashed;
+            border-width: 1px;
+            border-color: dimgrey;
         }
 
         body {
